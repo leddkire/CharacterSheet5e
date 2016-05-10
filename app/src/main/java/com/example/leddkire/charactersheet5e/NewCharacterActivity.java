@@ -1,13 +1,10 @@
 package com.example.leddkire.charactersheet5e;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
-import com.example.leddkire.charactersheet5e.FileManagement;
 
 public class NewCharacterActivity extends AppCompatActivity {
 
@@ -24,20 +21,55 @@ public class NewCharacterActivity extends AppCompatActivity {
     public void save_character(View view) {
         //Get the info that's going to be saved
         EditText char_name = (EditText) findViewById(R.id.char_name);
-        EditText str_value = (EditText) findViewById(R.id.str_value);
-        EditText dex_value = (EditText) findViewById(R.id.dex_value);
-        EditText con_value = (EditText) findViewById(R.id.con_value);
-        EditText int_value = (EditText) findViewById(R.id.int_value);
-        EditText wis_value = (EditText) findViewById(R.id.wis_value);
-        EditText cha_value = (EditText) findViewById(R.id.cha_value);
-        boolean writable = FileManagement.isExternalStorageWritable();
-        if (writable){
-            //TODO: SAVE THE INFORMATION ON A JSON FILE
+        //Check if the name is not null
+        String char_string = char_name.getText().toString();
+        if(checkStringEmpty(char_string)){
+            char_name.setHint("Please enter a name");
         }
+        else {
+            int str_int = parseStatInt(R.id.str_value);
+            int dex_int = parseStatInt(R.id.dex_value);
+            int con_int = parseStatInt(R.id.con_value);
+            int int_int = parseStatInt(R.id.int_value);
+            int wis_int = parseStatInt(R.id.wis_value);
+            int cha_int = parseStatInt(R.id.cha_value);
+            Character new_character = new Character(char_string, str_int, dex_int, con_int, int_int, wis_int, cha_int);
+            //Initialize the database
+            DatabaseHandler db = new DatabaseHandler(this);
+            db.addCharacter(new_character);
+            //Close the activity
+            finish();
+        }
+    }
 
+    private int parseStatInt(int id){
+        String s = getStringFromEditT(id);
+        return ZeroIfNull(s);
 
     }
 
+    private int ZeroIfNull(String s){
+        if(s.length()==0){
+            return 0;
+        }
+        else{
+            return Integer.parseInt(s);
+        }
+    }
+
+    private String getStringFromEditT(int id){
+        EditText et = (EditText) findViewById(id);
+        return et.getText().toString();
+    }
+
+    private boolean checkStringEmpty(String s){
+        if(s.length() == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 
 }

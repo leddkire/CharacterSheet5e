@@ -72,5 +72,7 @@ public class CharacterSheet extends AppCompatActivity {
     //The characters are saved in text files (for now). Consider using a database to store them
     //  instead.
     public void show_saved_characters(View view) {
+        Intent show_saved_characters = new Intent(this, LoadCharListActivity.class);
+        startActivity(show_saved_characters);
     }
 }
