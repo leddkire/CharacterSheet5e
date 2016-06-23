@@ -35,8 +35,8 @@ public class NewCharacterActivity extends AppCompatActivity {
             int cha_int = parseStatInt(R.id.cha_value);
             Character new_character = new Character(char_string, str_int, dex_int, con_int, int_int, wis_int, cha_int);
             //Initialize the database
-            DatabaseHandler db = new DatabaseHandler(this);
-            db.addCharacter(new_character);
+            Database_Handler db = new Database_Handler(this);
+            db.add_character(new_character);
             //Close the activity
             finish();
         }

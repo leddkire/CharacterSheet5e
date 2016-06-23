@@ -12,7 +12,9 @@ import java.util.List;
 /**
  * Created by leddkire on 8/5/2016.
  */
-public class DatabaseHandler extends SQLiteOpenHelper {
+
+//Database_Handler
+public class Database_Handler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "characterSheet";
@@ -30,7 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String STAT_CHARISMA = "charisma";
     ////\\\\
 
-    public DatabaseHandler(Context context){
+    public Database_Handler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -53,9 +55,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHARACTER);
         onCreate(db);
     }
-
+    //--------------------------------------------------------
     //Character table CRUD
-    public void addCharacter(Character character){
+    //add_character
+    //Adds a character to the Character table in the database.
+    //Input: A character.
+    //Output: void.
+    public void add_character(Character character){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -71,7 +77,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void get_Character(int id){
+    //get_character
+    //Looks up a character in the database.
+    //Input: An id pertaining to the character in question.
+    //Output: The character that was found (if found).
+    //TODO: change output from void to Character
+    public void get_character(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_CHARACTER,
@@ -92,7 +103,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Character character = new Character();
     }
 
-    public ArrayList<Character> getAllCharacters(){
+    //get_all_characters
+    //Obtains a list of all characters saved in the database.
+    //Input: void.
+    //Output: A list of Characters.
+    public ArrayList<Character> get_all_characters(){
         //Initialize the character list
         ArrayList<Character> characterList = new ArrayList<Character>();
         //Select All Query
@@ -118,7 +133,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return characterList;
     }
 
-    public int get_Char_Count(){
+    //get_char_count
+    //Counts the number of characters currently in the database.
+    //Input: Void.
+    //Output: The number of characters currently in the database.
+    public int get_char_count(){
         String countQuery = "SELECT * FROM " + TABLE_CHARACTER;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery,null);
@@ -127,7 +146,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
-    public int update_Char(Character character){
+    //update_char
+    //Updates the information of an existing character.
+    //Input: The Character with the updated info.
+    //Output: An int representing the success of the update.
+    public int update_char(Character character){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -144,11 +167,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return  updated;
     }
 
-    public void delete_Char(Character character){
+    //delete_char
+    //Deletes a Character in the database.
+    //Input: The Character that'll be deleted.
+    //Ouput: void.
+    public void delete_char(Character character){
         SQLiteDatabase db = this.getWritableDatabase();
         String value_id = String.valueOf(character.get_id());
         db.delete(TABLE_CHARACTER, KEY_ID + " = ?", new String[] {value_id});
         db.close();
     }
-    ////\\\\
+    //--------------------------------------------------------
 }
