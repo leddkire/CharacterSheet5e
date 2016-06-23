@@ -21,7 +21,7 @@ import android.view.MenuItem;
 //Imports EditText element constructor
 import android.widget.EditText;
 
-public class CharacterSheet extends AppCompatActivity {
+public class Character_Sheet extends AppCompatActivity {
 
     //Definitions
     //Id's
@@ -59,18 +59,21 @@ public class CharacterSheet extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    //start_new_character
     //Called when a user wants to create a new character.
     //Starts a new activity with an empty character form to fill out.
+    //Input: The View where the function call came from. TODO: Can this be removed if it's not used?
+    //Output: Void. Starts a new activity.
     public void start_new_character_activity(View view) {
         Intent new_character_intent = new Intent(this, NewCharacterActivity.class);
         startActivity(new_character_intent);
     }
 
+    //show_saved_characters
     //Called when a user wants to load an existing character.
-    //Fills the space below the buttons with a list of saved characters.
-    //The characters are saved in text files (for now). Consider using a database to store them
-    //  instead.
+    //Fills the activity with a list of saved characters.
+    //Input: The View where the function call came from. TODO: Can this be removed if it's not used?
+    //Output: Void. Starts a new activity.
     public void show_saved_characters(View view) {
         Intent show_saved_characters = new Intent(this, LoadCharListActivity.class);
         startActivity(show_saved_characters);
