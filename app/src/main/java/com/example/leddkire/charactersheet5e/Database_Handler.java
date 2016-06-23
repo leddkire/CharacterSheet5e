@@ -19,6 +19,7 @@ public class Database_Handler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "characterSheet";
 
+    //--------------------------------------------------------
     //Character table
     private static final String TABLE_CHARACTER = "character";
     //Key values for Character table
@@ -30,7 +31,7 @@ public class Database_Handler extends SQLiteOpenHelper {
     private static final String STAT_WISDOM = "wisdom";
     private static final String STAT_INTELLIGENCE ="intelligence";
     private static final String STAT_CHARISMA = "charisma";
-    ////\\\\
+    //--------------------------------------------------------
 
     public Database_Handler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
